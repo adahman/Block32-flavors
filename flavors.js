@@ -10,7 +10,7 @@ router.use(express.json())
 // static routes here (you only need these for deployment)
 router.get('/', async(req, res, next)=>{
     try{
-        const response = await client.query(`SELECT * FROM flavors ORDER BY id DESC`);
+        const response = await client.query(`SELECT * FROM flavors ORDER BY id ASC`);
         res.send(response.rows)
     }catch(err){
         next(err)
