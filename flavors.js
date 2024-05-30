@@ -5,10 +5,12 @@ const pg = require('pg');
 
 const client = new pg.Client('postgres://localhost/flavors');
 client.connect()
+
+router.use(express.json())
 // static routes here (you only need these for deployment)
 router.get('/', async(req, res, next)=>{
     try{
-        const response = await client.query(`SELECT * FROM flavors ORDER BY id ASC`);
+        const response = await client.query(`SELECT * FROM flavors ORDER BY id DESC`);
         res.send(response.rows)
     }catch(err){
         next(err)
@@ -35,6 +37,7 @@ router.post('/', async(req, res, next)=>{
             name: req.body.name,
             is_favorite: req.body.is_favorite
         })
+        console.log("req HERE", req.body)
     }catch(err){
         next(err)
     }
